@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import ShimmerUI from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
+import useFetchHomePageApiDetails from "../utils/useFetchHomePageApiDetails";
 
 const Body = () => {
-  const [restaurantCards, setRestaurantCards] = useState([]);
-  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchValue, setSearchValue] = useState("");
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const [restaurantCards, filteredRestaurants, setFilteredRestaurants] =
+    useFetchHomePageApiDetails();
 
   useEffect(() => {
     const onScroll = () => {
@@ -54,21 +53,6 @@ const Body = () => {
     };
   };
 
-  const fetchData = async () => {
-    const results = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
-    const jsonData = await results.json();
-    setRestaurantCards(
-      jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants
-    );
-    setFilteredRestaurants(
-      jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants
-    );
-  };
-
   const onFilterButtonClick = () => {
     const filteredRestaurants = restaurantCards.filter((item) => {
       return item.info.avgRating > 4.3;
@@ -76,6 +60,16 @@ const Body = () => {
 
     setFilteredRestaurants(filteredRestaurants);
   };
+
+  const onlineStatus = useOnlineStatus();
+
+  if (!onlineStatus) {
+    return (
+      <h1>
+        Looks like you are offline. Please check your internet connection.
+      </h1>
+    );
+  }
 
   if (restaurantCards && restaurantCards.length === 0) {
     return <ShimmerUI />;
