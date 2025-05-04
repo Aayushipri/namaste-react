@@ -25,4 +25,15 @@ const RestaurantCard = ({ resData }) => {
   );
 };
 
+export const withOpenedLabel = (RestaurantCard) => {
+  return (props) => {
+    return (
+      <div>
+        <label>Open</label>
+        <RestaurantCard {...props} />
+      </div>
+    );
+  };
+};
+
 export default RestaurantCard;

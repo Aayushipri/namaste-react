@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withOpenedLabel } from "./RestaurantCard";
 import ShimmerUI from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
@@ -75,6 +75,8 @@ const Body = () => {
     return <ShimmerUI />;
   }
 
+  const RestaurantCardOpened = withOpenedLabel(RestaurantCard);
+
   return (
     <div className="body">
       <div className="searchFilter">
@@ -107,7 +109,11 @@ const Body = () => {
               key={restaurant?.info?.id}
               to={"/restaurants/" + restaurant?.info?.id}
             >
-              <RestaurantCard resData={restaurant} />
+              {restaurant.info.isOpen ? (
+                <RestaurantCardOpened resData={restaurant} />
+              ) : (
+                <RestaurantCard resData={restaurant} />
+              )}
             </Link>
           ))}
       </div>
