@@ -8,7 +8,9 @@ const ItemList = ({ items }) => {
           <div>
             <div>
               <span>{item.card.info.name}</span>
-              <span>₹{item.card.info.price / 100}</span>
+              <span>
+                ₹{(item.card.info.defaultPrice || item.card.info.price) / 100}
+              </span>
             </div>
 
             <p>{item.card.info.description}</p>
