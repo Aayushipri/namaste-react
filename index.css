@@ -75,3 +75,29 @@
   padding: 10px;
   border: 1px solid black;
 }
+
+.categoryStyle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 4;
+  border-bottom: 5px solid gray;
+}
+
+.menu {
+  margin: 50px;
+}
+
+.itemContainer {
+  width: 100%;
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: space-between;
+  border-bottom: 2px solid gray;
+}
+
+.imgAndButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
