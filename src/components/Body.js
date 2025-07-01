@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import RestaurantCard, { withOpenedLabel } from "./RestaurantCard";
 import ShimmerUI from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import useFetchHomePageApiDetails from "../utils/useFetchHomePageApiDetails";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const [searchValue, setSearchValue] = useState("");
 
   const [restaurantCards, filteredRestaurants, setFilteredRestaurants] =
     useFetchHomePageApiDetails();
+  const { loggedInUser, userNameFn } = useContext(UserContext);
+  const [value, setValue] = useState(loggedInUser);
 
   useEffect(() => {
     const onScroll = () => {
@@ -102,6 +105,15 @@ const Body = () => {
           Top Rated Restaurants
         </button>
       </div>
+
+      <label>User Name:</label>
+      <input
+        value={loggedInUser}
+        onChange={(e) => {
+          userNameFn(e.target.value);
+        }}
+      />
+      <input value={value} onChange={(e) => setValue(e.target.value)} />
       <div className="res-container">
         {filteredRestaurants &&
           filteredRestaurants.map((restaurant) => (

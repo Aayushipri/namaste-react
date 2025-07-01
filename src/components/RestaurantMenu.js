@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ShimmerUI from "./Shimmer";
 import { useParams } from "react-router-dom";
 import useFetchRestaurantApiDetails from "../utils/useFetchRestaurantApiDetails";
@@ -8,6 +8,7 @@ const RestaurantMenu = () => {
   const { resId } = useParams();
 
   const resInfo = useFetchRestaurantApiDetails(resId);
+  const [showIndex, setShowIndex] = useState(null);
 
   if (!resInfo) {
     return <ShimmerUI />;
@@ -38,8 +39,18 @@ const RestaurantMenu = () => {
         {cuisines.join(",")}-{costForTwoMessage}
       </h3>
 
-      {categories.map((category) => (
-        <RestaurantCategory data={category.card.card} />
+      {categories.map((category, index) => (
+        <RestaurantCategory
+          data={category.card.card}
+          showItems={index === showIndex ? true : false}
+          setShowIndex={() => {
+            if (showIndex === index) {
+              setShowIndex();
+            } else {
+              setShowIndex(index);
+            }
+          }}
+        />
       ))}
     </div>
   );
