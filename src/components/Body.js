@@ -85,6 +85,7 @@ const Body = () => {
       <div className="searchFilter">
         <div>
           <input
+            data-testid="searchInput"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />{" "}

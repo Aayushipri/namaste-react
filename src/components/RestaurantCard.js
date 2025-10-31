@@ -12,8 +12,13 @@ const RestaurantCard = ({ resData }) => {
     cloudinaryImageId,
     costForTwo,
   } = resData?.info;
+
   return (
-    <div className="res-card" style={{ backgroundColor: "#f0f0f0" }}>
+    <div
+      data-testid="resCard"
+      className="res-card"
+      style={{ backgroundColor: "#f0f0f0" }}
+    >
       <img
         src={CDN_URL + cloudinaryImageId}
         alt="food-image"
