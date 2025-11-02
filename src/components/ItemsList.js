@@ -11,7 +11,11 @@ const ItemList = ({ items }) => {
   return (
     <div>
       {items.map((item) => (
-        <div key={item.card.info.id} className="itemContainer">
+        <div
+          data-testid="foodItems"
+          key={item.card.info.id}
+          className="itemContainer"
+        >
           <div>
             <div>
               <span>{item.card.info.name}</span>

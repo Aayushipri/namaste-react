@@ -7,7 +7,7 @@ import RestaurantCategory from "./RestaurantCategory";
 const RestaurantMenu = () => {
   const { resId } = useParams();
 
-  const resInfo = useFetchRestaurantApiDetails(resId);
+  const resInfo = useFetchRestaurantApiDetails(resId).data;
   const [showIndex, setShowIndex] = useState(null);
 
   if (!resInfo) {
@@ -33,7 +33,7 @@ const RestaurantMenu = () => {
     );
 
   return (
-    <div className="menu">
+    <div key={`hello+${name}`} className="menu">
       <h1>{name}</h1>
       <h3>
         {cuisines.join(",")}-{costForTwoMessage}
